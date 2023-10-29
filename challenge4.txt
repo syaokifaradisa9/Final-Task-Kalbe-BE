@@ -1,0 +1,36 @@
+CREATE DATABASE kalbe;
+USER kalbe;
+
+CREATE TABLE inventory (
+    item_code VARCHAR(5) NOT NULL PRIMARY KEY,
+    item_name VARCHAR(32) NOT NULL,
+    item_price int NOT NULL,
+    item_total int NOT NULL,
+);
+
+INSERT INTO inventory (item_code, item_name, item_price, item_total)
+VALUES
+("2341", "Promag Tablet", 3000, 100),
+("2342", "Hydro Coco 250ML", 7000, 20),
+("2343", "Nutrive Benecol 100ML", 20000, 30),
+("2344", "Blackmores Vit C 500Mg", 95000, 45),
+("2345", "Entrasol Gold 370G", 90000, 120);
+
+SELECT item_name 
+FROM inventory
+WHERE item_total = (
+    SELECT MAX(item_total) FROM inventory
+);
+
+UPDATE inventory
+SET Item_price = 10000
+WHERE item_total = (
+    SELECT MAX(item_total) FROM inventory
+);
+
+The data entry will fail because the item_code is a primary key, which means that the values must be unique.
+
+DELETE FROM inventory
+WHERE item_code = (
+    SELECT MIN(item_total) FROM inventory
+);

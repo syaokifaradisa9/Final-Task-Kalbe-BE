@@ -1,0 +1,1 @@
+Data Surabaya in table ddPlant has a redundant data, the solution is remove redundant until remains 1 and give ddPlant with unique key.

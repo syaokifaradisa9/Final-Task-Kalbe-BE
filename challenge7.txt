@@ -1,0 +1,55 @@
+CREATE DATABASE kalbe;
+use kalbe;
+
+CREATE TABLE customers (
+    id int PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(32),
+    address TEXT,
+    gender CHAR,
+    age INT
+);
+
+CREATE TABLE products (
+    id int PRIMARY KEY AUTO_INCREMENT,
+    code VARCHAR(16) UNIQUE,
+    name VARCHAR(32),
+    price int
+);
+
+CREATE TABLE discounts (
+    id int PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(32),
+    start_date DATE,
+    end_date DATE,
+    percentage FLOAT
+);
+
+CREATE TABLE store_branches (
+    id int PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(32),
+    address TEXT,
+    city VARCHAR(16)
+);
+
+CREATE TABLE cashiers (
+    id int PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(32)
+);
+
+CREATE TABLE transactions (
+    id int PRIMARY KEY PRIMARY KEY,
+    transaction_number VARCHAR(32) UNIQUE,
+    product_id int,
+    customer_id int,
+    discount_id int,
+    store_branch_id int,
+    cashier_id int,
+    transaction_date DATE,
+    amount int,
+
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id),
+    FOREIGN KEY (discount_id) REFERENCES discounts(id),
+    FOREIGN KEY (store_branch_id) REFERENCES store_branches(id),
+    FOREIGN KEY (cashier_id) REFERENCES cashiers(id)
+);
